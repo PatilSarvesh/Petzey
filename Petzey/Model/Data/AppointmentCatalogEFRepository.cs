@@ -12,7 +12,7 @@ namespace Petzey.Model.Data
 
         public void BookAppointment(Appointment appointment)
         {
-            db.Appointments.Add(appointment);
+            
             db.SaveChanges();
         }
     }

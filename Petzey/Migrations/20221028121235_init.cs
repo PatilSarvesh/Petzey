@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Petzey.Migrations
 {
-    public partial class rr : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -155,6 +155,54 @@ namespace Petzey.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DoctorAppointments",
+                columns: table => new
+                {
+                    DoctorAppointmentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AppointmentId = table.Column<int>(type: "int", nullable: true),
+                    PetOwnerId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DoctorAppointments", x => x.DoctorAppointmentId);
+                    table.ForeignKey(
+                        name: "FK_DoctorAppointments_Appointments_AppointmentId",
+                        column: x => x.AppointmentId,
+                        principalTable: "Appointments",
+                        principalColumn: "AppointmentId");
+                    table.ForeignKey(
+                        name: "FK_DoctorAppointments_PetOwners_PetOwnerId",
+                        column: x => x.PetOwnerId,
+                        principalTable: "PetOwners",
+                        principalColumn: "PetOwnerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PatientAppointments",
+                columns: table => new
+                {
+                    PatientAppointmentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AppointmentId = table.Column<int>(type: "int", nullable: true),
+                    DoctorId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PatientAppointments", x => x.PatientAppointmentId);
+                    table.ForeignKey(
+                        name: "FK_PatientAppointments_Appointments_AppointmentId",
+                        column: x => x.AppointmentId,
+                        principalTable: "Appointments",
+                        principalColumn: "AppointmentId");
+                    table.ForeignKey(
+                        name: "FK_PatientAppointments_Doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctors",
+                        principalColumn: "DoctorId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Patients",
                 columns: table => new
                 {
@@ -185,6 +233,37 @@ namespace Petzey.Migrations
                         column: x => x.VitalId,
                         principalTable: "Vitals",
                         principalColumn: "VitalId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReceptionistAppointments",
+                columns: table => new
+                {
+                    ReceptionistAppointmentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AppointmentId = table.Column<int>(type: "int", nullable: true),
+                    DoctorId = table.Column<int>(type: "int", nullable: false),
+                    PetOwnerId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReceptionistAppointments", x => x.ReceptionistAppointmentId);
+                    table.ForeignKey(
+                        name: "FK_ReceptionistAppointments_Appointments_AppointmentId",
+                        column: x => x.AppointmentId,
+                        principalTable: "Appointments",
+                        principalColumn: "AppointmentId");
+                    table.ForeignKey(
+                        name: "FK_ReceptionistAppointments_Doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctors",
+                        principalColumn: "DoctorId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ReceptionistAppointments_PetOwners_PetOwnerId",
+                        column: x => x.PetOwnerId,
+                        principalTable: "PetOwners",
+                        principalColumn: "PetOwnerId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -240,9 +319,29 @@ namespace Petzey.Migrations
                 column: "PetId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DoctorAppointments_AppointmentId",
+                table: "DoctorAppointments",
+                column: "AppointmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DoctorAppointments_PetOwnerId",
+                table: "DoctorAppointments",
+                column: "PetOwnerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Doctors_ClinicId",
                 table: "Doctors",
                 column: "ClinicId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientAppointments_AppointmentId",
+                table: "PatientAppointments",
+                column: "AppointmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientAppointments_DoctorId",
+                table: "PatientAppointments",
+                column: "DoctorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Patients_AppointmentId",
@@ -275,6 +374,21 @@ namespace Petzey.Migrations
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ReceptionistAppointments_AppointmentId",
+                table: "ReceptionistAppointments",
+                column: "AppointmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReceptionistAppointments_DoctorId",
+                table: "ReceptionistAppointments",
+                column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReceptionistAppointments_PetOwnerId",
+                table: "ReceptionistAppointments",
+                column: "PetOwnerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Symptoms_AppointmentId",
                 table: "Symptoms",
                 column: "AppointmentId");
@@ -283,22 +397,28 @@ namespace Petzey.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Doctors");
+                name: "DoctorAppointments");
+
+            migrationBuilder.DropTable(
+                name: "PatientAppointments");
 
             migrationBuilder.DropTable(
                 name: "Prescriptions");
 
             migrationBuilder.DropTable(
-                name: "Symptoms");
+                name: "ReceptionistAppointments");
 
             migrationBuilder.DropTable(
-                name: "Clinics");
+                name: "Symptoms");
 
             migrationBuilder.DropTable(
                 name: "Medicines");
 
             migrationBuilder.DropTable(
                 name: "Patients");
+
+            migrationBuilder.DropTable(
+                name: "Doctors");
 
             migrationBuilder.DropTable(
                 name: "Appointments");
@@ -308,6 +428,9 @@ namespace Petzey.Migrations
 
             migrationBuilder.DropTable(
                 name: "Vitals");
+
+            migrationBuilder.DropTable(
+                name: "Clinics");
 
             migrationBuilder.DropTable(
                 name: "Pets");

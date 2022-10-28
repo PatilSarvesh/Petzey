@@ -7,13 +7,14 @@ namespace Petzey.Model.Data
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=PetzeyDb;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=PetzeyProjectDb2022;Integrated Security=True");
         }
 
         public DbSet<Clinic> Clinics { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<DoctorAppointment> DoctorAppointments { get; set; }
         public DbSet<PatientAppointment> PatientAppointments { get; set; }
+        public DbSet<ReceptionistAppointment> ReceptionistAppointments { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Pet> Pets { get; set; }
         public DbSet<PetOwner> PetOwners { get; set; }

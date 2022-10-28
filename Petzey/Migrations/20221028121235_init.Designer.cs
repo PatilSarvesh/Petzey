@@ -12,8 +12,8 @@ using Petzey.Model.Data;
 namespace Petzey.Migrations
 {
     [DbContext(typeof(PetzeyDbContext))]
-    [Migration("20221028084111_rr")]
-    partial class rr
+    [Migration("20221028121235_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -106,6 +106,26 @@ namespace Petzey.Migrations
                     b.ToTable("Doctors");
                 });
 
+            modelBuilder.Entity("Petzey.Model.Entities.DoctorAppointment", b =>
+                {
+                    b.Property<string>("DoctorAppointmentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PetOwnerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DoctorAppointmentId");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.HasIndex("PetOwnerId");
+
+                    b.ToTable("DoctorAppointments");
+                });
+
             modelBuilder.Entity("Petzey.Model.Entities.Medicine", b =>
                 {
                     b.Property<int>("MedicineId")
@@ -157,6 +177,26 @@ namespace Petzey.Migrations
                     b.HasIndex("VitalId");
 
                     b.ToTable("Patients");
+                });
+
+            modelBuilder.Entity("Petzey.Model.Entities.PatientAppointment", b =>
+                {
+                    b.Property<string>("PatientAppointmentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PatientAppointmentId");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("PatientAppointments");
                 });
 
             modelBuilder.Entity("Petzey.Model.Entities.Pet", b =>
@@ -246,6 +286,31 @@ namespace Petzey.Migrations
                     b.ToTable("Prescriptions");
                 });
 
+            modelBuilder.Entity("Petzey.Model.Entities.ReceptionistAppointment", b =>
+                {
+                    b.Property<string>("ReceptionistAppointmentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PetOwnerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReceptionistAppointmentId");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PetOwnerId");
+
+                    b.ToTable("ReceptionistAppointments");
+                });
+
             modelBuilder.Entity("Petzey.Model.Entities.Symptom", b =>
                 {
                     b.Property<int>("SymptomId")
@@ -333,6 +398,23 @@ namespace Petzey.Migrations
                     b.Navigation("Clinic");
                 });
 
+            modelBuilder.Entity("Petzey.Model.Entities.DoctorAppointment", b =>
+                {
+                    b.HasOne("Petzey.Model.Entities.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId");
+
+                    b.HasOne("Petzey.Model.Entities.PetOwner", "PetOwner")
+                        .WithMany()
+                        .HasForeignKey("PetOwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+
+                    b.Navigation("PetOwner");
+                });
+
             modelBuilder.Entity("Petzey.Model.Entities.Patient", b =>
                 {
                     b.HasOne("Petzey.Model.Entities.Appointment", "Appointment")
@@ -360,6 +442,23 @@ namespace Petzey.Migrations
                     b.Navigation("Vital");
                 });
 
+            modelBuilder.Entity("Petzey.Model.Entities.PatientAppointment", b =>
+                {
+                    b.HasOne("Petzey.Model.Entities.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId");
+
+                    b.HasOne("Petzey.Model.Entities.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+
+                    b.Navigation("Doctor");
+                });
+
             modelBuilder.Entity("Petzey.Model.Entities.Pet", b =>
                 {
                     b.HasOne("Petzey.Model.Entities.PetOwner", "PetOwner")
@@ -382,6 +481,31 @@ namespace Petzey.Migrations
                         .HasForeignKey("PatientId");
 
                     b.Navigation("Medicine");
+                });
+
+            modelBuilder.Entity("Petzey.Model.Entities.ReceptionistAppointment", b =>
+                {
+                    b.HasOne("Petzey.Model.Entities.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId");
+
+                    b.HasOne("Petzey.Model.Entities.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Petzey.Model.Entities.PetOwner", "PetOwner")
+                        .WithMany()
+                        .HasForeignKey("PetOwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("PetOwner");
                 });
 
             modelBuilder.Entity("Petzey.Model.Entities.Symptom", b =>
