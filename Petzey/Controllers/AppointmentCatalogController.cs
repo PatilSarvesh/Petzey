@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Petzey.Model.Data;
+using Petzey.Model.Data.DoctorAppointmentRepo;
 using Petzey.Model.Entities;
 
 namespace Petzey.Controllers
@@ -9,12 +9,11 @@ namespace Petzey.Controllers
     [ApiController]
     public class AppointmentCatalogController : ControllerBase
     {
-        IAppointmentCatalogRepository repo = new AppointmentCatalogEFRepository();
+        IDoctorAppointmentRepository repo = new DoctorAppointmentRepository();
 
         [HttpGet]
-       public void  appointment(Appointment appointment)
+        public void  appointment(Appointment appointment)
         {
-            repo.BookAppointment(appointment);
 
         }
     }
