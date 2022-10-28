@@ -7,7 +7,7 @@ namespace Petzey.Model.Data
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=PetzeyCatalogDb;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=PetzeyDb;Integrated Security=True");
         }
 
         public DbSet<Clinic> Clinics { get; set; }
