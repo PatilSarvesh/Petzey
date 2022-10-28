@@ -11,10 +11,10 @@ namespace Petzey.Controllers
     {
         IDoctorAppointmentRepository repo = new DoctorAppointmentRepository();
 
-        [HttpGet]
-        public void  appointment(Appointment appointment)
+        [HttpPost]
+        public void  DoctorAppointment(DoctorAppointment Appointment)
         {
-
+            repo.AddAppointment(Appointment);
         }
     }
 }

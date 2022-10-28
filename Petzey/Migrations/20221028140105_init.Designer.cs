@@ -12,8 +12,8 @@ using Petzey.Model.Data;
 namespace Petzey.Migrations
 {
     [DbContext(typeof(PetzeyDbContext))]
-    [Migration("20221028133924_new1")]
-    partial class new1
+    [Migration("20221028140105_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,10 +108,13 @@ namespace Petzey.Migrations
 
             modelBuilder.Entity("Petzey.Model.Entities.DoctorAppointment", b =>
                 {
-                    b.Property<string>("DoctorAppointmentId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("DoctorAppointmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<int?>("AppointmentId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DoctorAppointmentId"), 1L, 1);
+
+                    b.Property<int>("AppointmentId")
                         .HasColumnType("int");
 
                     b.Property<int>("PetOwnerId")
@@ -156,17 +159,17 @@ namespace Petzey.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatientId"), 1L, 1);
 
-                    b.Property<string>("DoctorAppointmentId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("DoctorAppointmentId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("PatientAppointmentId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("PatientAppointmentId")
+                        .HasColumnType("int");
 
                     b.Property<int>("PrescriptionId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ReceptionistAppointmentId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("ReceptionistAppointmentId")
+                        .HasColumnType("int");
 
                     b.Property<int>("TestId")
                         .HasColumnType("int");
@@ -191,10 +194,13 @@ namespace Petzey.Migrations
 
             modelBuilder.Entity("Petzey.Model.Entities.PatientAppointment", b =>
                 {
-                    b.Property<string>("PatientAppointmentId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("PatientAppointmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<int?>("AppointmentId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatientAppointmentId"), 1L, 1);
+
+                    b.Property<int>("AppointmentId")
                         .HasColumnType("int");
 
                     b.Property<int>("DoctorId")
@@ -298,10 +304,13 @@ namespace Petzey.Migrations
 
             modelBuilder.Entity("Petzey.Model.Entities.ReceptionistAppointment", b =>
                 {
-                    b.Property<string>("ReceptionistAppointmentId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ReceptionistAppointmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<int?>("AppointmentId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReceptionistAppointmentId"), 1L, 1);
+
+                    b.Property<int>("AppointmentId")
                         .HasColumnType("int");
 
                     b.Property<int>("DoctorId")
@@ -412,7 +421,9 @@ namespace Petzey.Migrations
                 {
                     b.HasOne("Petzey.Model.Entities.Appointment", "Appointment")
                         .WithMany()
-                        .HasForeignKey("AppointmentId");
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Petzey.Model.Entities.PetOwner", "PetOwner")
                         .WithMany()
@@ -466,7 +477,9 @@ namespace Petzey.Migrations
                 {
                     b.HasOne("Petzey.Model.Entities.Appointment", "Appointment")
                         .WithMany()
-                        .HasForeignKey("AppointmentId");
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Petzey.Model.Entities.Doctor", "Doctor")
                         .WithMany()
@@ -507,7 +520,9 @@ namespace Petzey.Migrations
                 {
                     b.HasOne("Petzey.Model.Entities.Appointment", "Appointment")
                         .WithMany()
-                        .HasForeignKey("AppointmentId");
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Petzey.Model.Entities.Doctor", "Doctor")
                         .WithMany()

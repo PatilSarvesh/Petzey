@@ -2,8 +2,9 @@
 {
     public class ReceptionistAppointment
     {
-        public string ReceptionistAppointmentId { get; set; }
+        public int ReceptionistAppointmentId { get; set; }
         public Appointment Appointment { get; set; }
+        public int AppointmentId { get; set; }
         public Doctor Doctor { get; set; }
         public int DoctorId { get; set; }
         public PetOwner PetOwner { get; set; }

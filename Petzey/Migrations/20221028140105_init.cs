@@ -158,8 +158,9 @@ namespace Petzey.Migrations
                 name: "DoctorAppointments",
                 columns: table => new
                 {
-                    DoctorAppointmentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AppointmentId = table.Column<int>(type: "int", nullable: true),
+                    DoctorAppointmentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppointmentId = table.Column<int>(type: "int", nullable: false),
                     PetOwnerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -169,7 +170,8 @@ namespace Petzey.Migrations
                         name: "FK_DoctorAppointments_Appointments_AppointmentId",
                         column: x => x.AppointmentId,
                         principalTable: "Appointments",
-                        principalColumn: "AppointmentId");
+                        principalColumn: "AppointmentId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DoctorAppointments_PetOwners_PetOwnerId",
                         column: x => x.PetOwnerId,
@@ -182,8 +184,9 @@ namespace Petzey.Migrations
                 name: "PatientAppointments",
                 columns: table => new
                 {
-                    PatientAppointmentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AppointmentId = table.Column<int>(type: "int", nullable: true),
+                    PatientAppointmentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppointmentId = table.Column<int>(type: "int", nullable: false),
                     DoctorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -193,7 +196,8 @@ namespace Petzey.Migrations
                         name: "FK_PatientAppointments_Appointments_AppointmentId",
                         column: x => x.AppointmentId,
                         principalTable: "Appointments",
-                        principalColumn: "AppointmentId");
+                        principalColumn: "AppointmentId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PatientAppointments_Doctors_DoctorId",
                         column: x => x.DoctorId,
@@ -203,45 +207,12 @@ namespace Petzey.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Patients",
-                columns: table => new
-                {
-                    PatientId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AppointmentId = table.Column<int>(type: "int", nullable: false),
-                    VitalId = table.Column<int>(type: "int", nullable: false),
-                    TestId = table.Column<int>(type: "int", nullable: false),
-                    PrescriptionId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Patients", x => x.PatientId);
-                    table.ForeignKey(
-                        name: "FK_Patients_Appointments_AppointmentId",
-                        column: x => x.AppointmentId,
-                        principalTable: "Appointments",
-                        principalColumn: "AppointmentId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Patients_Tests_TestId",
-                        column: x => x.TestId,
-                        principalTable: "Tests",
-                        principalColumn: "TestId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Patients_Vitals_VitalId",
-                        column: x => x.VitalId,
-                        principalTable: "Vitals",
-                        principalColumn: "VitalId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ReceptionistAppointments",
                 columns: table => new
                 {
-                    ReceptionistAppointmentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AppointmentId = table.Column<int>(type: "int", nullable: true),
+                    ReceptionistAppointmentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppointmentId = table.Column<int>(type: "int", nullable: false),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
                     PetOwnerId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -252,7 +223,8 @@ namespace Petzey.Migrations
                         name: "FK_ReceptionistAppointments_Appointments_AppointmentId",
                         column: x => x.AppointmentId,
                         principalTable: "Appointments",
-                        principalColumn: "AppointmentId");
+                        principalColumn: "AppointmentId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ReceptionistAppointments_Doctors_DoctorId",
                         column: x => x.DoctorId,
@@ -285,6 +257,51 @@ namespace Petzey.Migrations
                         column: x => x.AppointmentId,
                         principalTable: "Appointments",
                         principalColumn: "AppointmentId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Patients",
+                columns: table => new
+                {
+                    PatientId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DoctorAppointmentId = table.Column<int>(type: "int", nullable: true),
+                    PatientAppointmentId = table.Column<int>(type: "int", nullable: true),
+                    ReceptionistAppointmentId = table.Column<int>(type: "int", nullable: true),
+                    VitalId = table.Column<int>(type: "int", nullable: false),
+                    TestId = table.Column<int>(type: "int", nullable: false),
+                    PrescriptionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Patients", x => x.PatientId);
+                    table.ForeignKey(
+                        name: "FK_Patients_DoctorAppointments_DoctorAppointmentId",
+                        column: x => x.DoctorAppointmentId,
+                        principalTable: "DoctorAppointments",
+                        principalColumn: "DoctorAppointmentId");
+                    table.ForeignKey(
+                        name: "FK_Patients_PatientAppointments_PatientAppointmentId",
+                        column: x => x.PatientAppointmentId,
+                        principalTable: "PatientAppointments",
+                        principalColumn: "PatientAppointmentId");
+                    table.ForeignKey(
+                        name: "FK_Patients_ReceptionistAppointments_ReceptionistAppointmentId",
+                        column: x => x.ReceptionistAppointmentId,
+                        principalTable: "ReceptionistAppointments",
+                        principalColumn: "ReceptionistAppointmentId");
+                    table.ForeignKey(
+                        name: "FK_Patients_Tests_TestId",
+                        column: x => x.TestId,
+                        principalTable: "Tests",
+                        principalColumn: "TestId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Patients_Vitals_VitalId",
+                        column: x => x.VitalId,
+                        principalTable: "Vitals",
+                        principalColumn: "VitalId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -344,9 +361,19 @@ namespace Petzey.Migrations
                 column: "DoctorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Patients_AppointmentId",
+                name: "IX_Patients_DoctorAppointmentId",
                 table: "Patients",
-                column: "AppointmentId");
+                column: "DoctorAppointmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_PatientAppointmentId",
+                table: "Patients",
+                column: "PatientAppointmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_ReceptionistAppointmentId",
+                table: "Patients",
+                column: "ReceptionistAppointmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Patients_TestId",
@@ -397,16 +424,7 @@ namespace Petzey.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DoctorAppointments");
-
-            migrationBuilder.DropTable(
-                name: "PatientAppointments");
-
-            migrationBuilder.DropTable(
                 name: "Prescriptions");
-
-            migrationBuilder.DropTable(
-                name: "ReceptionistAppointments");
 
             migrationBuilder.DropTable(
                 name: "Symptoms");
@@ -418,10 +436,13 @@ namespace Petzey.Migrations
                 name: "Patients");
 
             migrationBuilder.DropTable(
-                name: "Doctors");
+                name: "DoctorAppointments");
 
             migrationBuilder.DropTable(
-                name: "Appointments");
+                name: "PatientAppointments");
+
+            migrationBuilder.DropTable(
+                name: "ReceptionistAppointments");
 
             migrationBuilder.DropTable(
                 name: "Tests");
@@ -430,10 +451,16 @@ namespace Petzey.Migrations
                 name: "Vitals");
 
             migrationBuilder.DropTable(
-                name: "Clinics");
+                name: "Appointments");
+
+            migrationBuilder.DropTable(
+                name: "Doctors");
 
             migrationBuilder.DropTable(
                 name: "Pets");
+
+            migrationBuilder.DropTable(
+                name: "Clinics");
 
             migrationBuilder.DropTable(
                 name: "PetOwners");
