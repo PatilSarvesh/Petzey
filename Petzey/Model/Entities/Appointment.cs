@@ -9,6 +9,6 @@
         public int SymptomId { get; set; }
 
         //logged in user Id
-        public string UserName { get; set; }
+        public int UserNameId { get; set; }
     }
 }
