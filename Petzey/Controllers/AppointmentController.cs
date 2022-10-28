@@ -7,7 +7,7 @@ namespace Petzey.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppointmentCatalogController : ControllerBase
+    public class AppointmentController : ControllerBase
     {
         IDoctorAppointmentRepository repo = new DoctorAppointmentRepository();
 

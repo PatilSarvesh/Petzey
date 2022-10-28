@@ -56,6 +56,20 @@ namespace Petzey.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Symptoms",
+                columns: table => new
+                {
+                    SymptomId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SymptomName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Symptoms", x => x.SymptomId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tests",
                 columns: table => new
                 {
@@ -139,18 +153,17 @@ namespace Petzey.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReasonForVisit = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PetId = table.Column<int>(type: "int", nullable: false),
                     SymptomId = table.Column<int>(type: "int", nullable: false),
-                    User = table.Column<int>(type: "int", nullable: false)
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Appointments", x => x.AppointmentId);
                     table.ForeignKey(
-                        name: "FK_Appointments_Pets_PetId",
-                        column: x => x.PetId,
-                        principalTable: "Pets",
-                        principalColumn: "PetId",
+                        name: "FK_Appointments_Symptoms_SymptomId",
+                        column: x => x.SymptomId,
+                        principalTable: "Symptoms",
+                        principalColumn: "SymptomId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -240,26 +253,6 @@ namespace Petzey.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Symptoms",
-                columns: table => new
-                {
-                    SymptomId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SymptomName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AppointmentId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Symptoms", x => x.SymptomId);
-                    table.ForeignKey(
-                        name: "FK_Symptoms_Appointments_AppointmentId",
-                        column: x => x.AppointmentId,
-                        principalTable: "Appointments",
-                        principalColumn: "AppointmentId");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Patients",
                 columns: table => new
                 {
@@ -331,9 +324,9 @@ namespace Petzey.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointments_PetId",
+                name: "IX_Appointments_SymptomId",
                 table: "Appointments",
-                column: "PetId");
+                column: "SymptomId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DoctorAppointments_AppointmentId",
@@ -414,20 +407,15 @@ namespace Petzey.Migrations
                 name: "IX_ReceptionistAppointments_PetOwnerId",
                 table: "ReceptionistAppointments",
                 column: "PetOwnerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Symptoms_AppointmentId",
-                table: "Symptoms",
-                column: "AppointmentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Prescriptions");
+                name: "Pets");
 
             migrationBuilder.DropTable(
-                name: "Symptoms");
+                name: "Prescriptions");
 
             migrationBuilder.DropTable(
                 name: "Medicines");
@@ -457,13 +445,13 @@ namespace Petzey.Migrations
                 name: "Doctors");
 
             migrationBuilder.DropTable(
-                name: "Pets");
+                name: "PetOwners");
+
+            migrationBuilder.DropTable(
+                name: "Symptoms");
 
             migrationBuilder.DropTable(
                 name: "Clinics");
-
-            migrationBuilder.DropTable(
-                name: "PetOwners");
         }
     }
 }

@@ -12,7 +12,7 @@ using Petzey.Model.Data;
 namespace Petzey.Migrations
 {
     [DbContext(typeof(PetzeyDbContext))]
-    [Migration("20221028140105_init")]
+    [Migration("20221028142508_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,21 +35,18 @@ namespace Petzey.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PetId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ReasonForVisit")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SymptomId")
                         .HasColumnType("int");
 
-                    b.Property<int>("User")
-                        .HasColumnType("int");
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AppointmentId");
 
-                    b.HasIndex("PetId");
+                    b.HasIndex("SymptomId");
 
                     b.ToTable("Appointments");
                 });
@@ -338,9 +335,6 @@ namespace Petzey.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SymptomId"), 1L, 1);
 
-                    b.Property<int?>("AppointmentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -348,8 +342,6 @@ namespace Petzey.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SymptomId");
-
-                    b.HasIndex("AppointmentId");
 
                     b.ToTable("Symptoms");
                 });
@@ -397,13 +389,13 @@ namespace Petzey.Migrations
 
             modelBuilder.Entity("Petzey.Model.Entities.Appointment", b =>
                 {
-                    b.HasOne("Petzey.Model.Entities.Pet", "Pet")
+                    b.HasOne("Petzey.Model.Entities.Symptom", "Symptom")
                         .WithMany()
-                        .HasForeignKey("PetId")
+                        .HasForeignKey("SymptomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Pet");
+                    b.Navigation("Symptom");
                 });
 
             modelBuilder.Entity("Petzey.Model.Entities.Doctor", b =>
@@ -494,11 +486,9 @@ namespace Petzey.Migrations
 
             modelBuilder.Entity("Petzey.Model.Entities.Pet", b =>
                 {
-                    b.HasOne("Petzey.Model.Entities.PetOwner", "PetOwner")
+                    b.HasOne("Petzey.Model.Entities.PetOwner", null)
                         .WithMany("Pets")
                         .HasForeignKey("PetOwnerId");
-
-                    b.Navigation("PetOwner");
                 });
 
             modelBuilder.Entity("Petzey.Model.Entities.Prescription", b =>
@@ -541,18 +531,6 @@ namespace Petzey.Migrations
                     b.Navigation("Doctor");
 
                     b.Navigation("PetOwner");
-                });
-
-            modelBuilder.Entity("Petzey.Model.Entities.Symptom", b =>
-                {
-                    b.HasOne("Petzey.Model.Entities.Appointment", null)
-                        .WithMany("Symptom")
-                        .HasForeignKey("AppointmentId");
-                });
-
-            modelBuilder.Entity("Petzey.Model.Entities.Appointment", b =>
-                {
-                    b.Navigation("Symptom");
                 });
 
             modelBuilder.Entity("Petzey.Model.Entities.Patient", b =>
