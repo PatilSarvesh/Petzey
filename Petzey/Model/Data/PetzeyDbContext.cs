@@ -15,6 +15,7 @@ namespace Petzey.Model.Data
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Pet> Pets { get; set; }
         public DbSet<PetOwner> PetOwners { get; set; }
+        public DbSet<Patient> Patients { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<Symptom> Symptoms { get; set; }
