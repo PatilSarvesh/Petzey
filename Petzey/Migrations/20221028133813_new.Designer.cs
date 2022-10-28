@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Petzey.Model.Data;
 
@@ -11,9 +12,10 @@ using Petzey.Model.Data;
 namespace Petzey.Migrations
 {
     [DbContext(typeof(PetzeyDbContext))]
-    partial class PetzeyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221028133813_new")]
+    partial class @new
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,16 +156,25 @@ namespace Petzey.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatientId"), 1L, 1);
 
-                    b.Property<string>("DoctorAppointmentId")
+                    b.Property<int>("DoctorAppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DoctorAppointmentId1")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("PatientAppointmentId")
+                    b.Property<int>("PatientAppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PatientAppointmentId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("PrescriptionId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ReceptionistAppointmentId")
+                    b.Property<int>("ReceptionistAppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReceptionistAppointmentId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("TestId")
@@ -174,11 +185,11 @@ namespace Petzey.Migrations
 
                     b.HasKey("PatientId");
 
-                    b.HasIndex("DoctorAppointmentId");
+                    b.HasIndex("DoctorAppointmentId1");
 
-                    b.HasIndex("PatientAppointmentId");
+                    b.HasIndex("PatientAppointmentId1");
 
-                    b.HasIndex("ReceptionistAppointmentId");
+                    b.HasIndex("ReceptionistAppointmentId1");
 
                     b.HasIndex("TestId");
 
@@ -427,15 +438,15 @@ namespace Petzey.Migrations
                 {
                     b.HasOne("Petzey.Model.Entities.DoctorAppointment", "DoctorAppointment")
                         .WithMany()
-                        .HasForeignKey("DoctorAppointmentId");
+                        .HasForeignKey("DoctorAppointmentId1");
 
                     b.HasOne("Petzey.Model.Entities.PatientAppointment", "PatientAppointment")
                         .WithMany()
-                        .HasForeignKey("PatientAppointmentId");
+                        .HasForeignKey("PatientAppointmentId1");
 
                     b.HasOne("Petzey.Model.Entities.ReceptionistAppointment", "ReceptionistAppointment")
                         .WithMany()
-                        .HasForeignKey("ReceptionistAppointmentId");
+                        .HasForeignKey("ReceptionistAppointmentId1");
 
                     b.HasOne("Petzey.Model.Entities.Test", "Test")
                         .WithMany()

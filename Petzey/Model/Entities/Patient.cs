@@ -3,8 +3,9 @@
     public class Patient
     {
         public int PatientId { get; set; }
-        public Appointment Appointment { get; set; }
-        public int AppointmentId { get; set; }
+        public DoctorAppointment DoctorAppointment { get; set; }
+        public PatientAppointment PatientAppointment { get; set; }
+        public ReceptionistAppointment ReceptionistAppointment { get; set; }
         public Vital Vital { get; set; }
         public int VitalId { get; set; }
         public Test Test { get; set; }
