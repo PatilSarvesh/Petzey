@@ -9,6 +9,5 @@
         public string Address { get; set; }
         public List<Pet> Pets { get; set; } 
         public int PetId { get; set; }
-
     }
 }

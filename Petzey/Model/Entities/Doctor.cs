@@ -10,6 +10,5 @@
         public string Email { get; set; }
         public Clinic Clinic { get; set; }
         public int ClinicId { get; set; }   
-
     }
 }
