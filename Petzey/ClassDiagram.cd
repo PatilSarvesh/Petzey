@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Petzey.Model.Entities.Appointment">
-    <Position X="3.25" Y="3.5" Width="1.5" />
+    <Position X="3.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAASAAAAAABAAAAAAAAQAgBAAAAAAAAAAA=</HashCode>
       <FileName>Model\Entities\Appointment.cs</FileName>
@@ -14,14 +14,14 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Petzey.Model.Entities.Clinic">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAgAAQAAAAAIAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Entities\Clinic.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Petzey.Model.Entities.Doctor">
-    <Position X="3.25" Y="0.5" Width="1.5" />
+    <Position X="6.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACABAQAAAAAgAAQAAAACAAAQAAAAAAACAAA=</HashCode>
       <FileName>Model\Entities\Doctor.cs</FileName>
@@ -31,14 +31,14 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Petzey.Model.Entities.Medicine">
-    <Position X="6.25" Y="0.5" Width="1.5" />
+    <Position X="11" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAAAAQA=</HashCode>
       <FileName>Model\Entities\Medicine.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Petzey.Model.Entities.Pet">
-    <Position X="0.5" Y="5.75" Width="1.5" />
+    <Position X="3.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAABAAAAAAAAAEABIAAQAAAQAAAAAAAAAAAABAA=</HashCode>
       <FileName>Model\Entities\Pet.cs</FileName>
@@ -48,7 +48,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Petzey.Model.Entities.PetOwner">
-    <Position X="0.5" Y="3" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAEAAABAABAEAAAAAASAAAAAAAAAAA=</HashCode>
       <FileName>Model\Entities\PetOwner.cs</FileName>
@@ -58,32 +58,63 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Petzey.Model.Entities.Prescription">
-    <Position X="6.25" Y="4.75" Width="1.5" />
+    <Position X="11" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAACAQ=</HashCode>
       <FileName>Model\Entities\Prescription.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Petzey.Model.Entities.Symptom">
-    <Position X="3.25" Y="6.75" Width="1.5" />
+    <Position X="0.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAgAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Entities\Symptom.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Petzey.Model.Entities.Test">
-    <Position X="6.25" Y="7" Width="1.5" />
+    <Position X="11" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAEAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
       <FileName>Model\Entities\Test.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Petzey.Model.Entities.Vital">
-    <Position X="6.25" Y="2.75" Width="1.5" />
+    <Position X="11" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAAAAAABAAAAAAAAAAAAQAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>Model\Entities\Vital.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="Petzey.Model.Entities.DoctorAppointment">
+    <Position X="3.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Entities\DoctorAppointment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PetOwner" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Petzey.Model.Entities.PatientAppointment">
+    <Position X="5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Entities\PatientAppointment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Doctor" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Petzey.Model.Entities.ReceptionistAppointment">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAEAACAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Entities\ReceptionistAppointment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Doctor" />
+      <Property Name="PetOwner" />
+    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
