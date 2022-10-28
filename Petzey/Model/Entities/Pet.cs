@@ -8,8 +8,5 @@
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }
         public string BloodGroup { get; set; }
-
-        public Symptom Symptom { get; set; }
-        public int SymptomId { get; set; }
     }
 }

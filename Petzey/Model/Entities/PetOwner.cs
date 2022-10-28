@@ -7,11 +7,8 @@
         public string Email { get; set; }
         public int MobileNo { get; set; }
         public string Address { get; set; }
-        public Pet Pets { get; set; } 
+        public List<Pet> Pets { get; set; } 
         public int PetId { get; set; }
-
-        public Appointment Appointment { get; set; }
-        public int AppointmentId { get; set; }
 
     }
 }
