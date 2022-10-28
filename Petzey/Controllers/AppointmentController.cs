@@ -12,9 +12,32 @@ namespace Petzey.Controllers
         IDoctorAppointmentRepository repo = new DoctorAppointmentRepository();
 
         [HttpPost]
-        public void  DoctorAppointment(DoctorAppointment Appointment)
+        [Route("DoctorAppointment")]
+        public ActionResult DoctorAppointment(DoctorAppointment Appointment)
         {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid Input");
             repo.AddAppointment(Appointment);
+
+            return Created("api/Appointment{Appointment.DoctorAppointmentId}", Appointment);
+        }
+        [HttpGet]
+        [Route("DoctorAppointment")]
+        public ActionResult<List<DoctorAppointment>> GetDoctorAppointments()
+        {
+            var res = repo.GetAllAppointments();
+            if (res.Count == 0)
+                return NotFound();
+            return Ok(res);
+        }
+        [HttpGet]
+        [Route("DoctorAppointment/{id}")]
+        public ActionResult<DoctorAppointment> GetDoctorAppointment(int id)
+        {
+            var res = repo.GetAppointment(id);
+            if (res == null)
+                return NotFound();
+            return Ok(res);
         }
     }
 }

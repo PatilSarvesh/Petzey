@@ -11,5 +11,17 @@ namespace Petzey.Model.Data.DoctorAppointmentRepo
             db.DoctorAppointments.Add(Appointment);
             db.SaveChanges();
         }
+
+        public List<DoctorAppointment> GetAllAppointments()
+        {
+            return db.DoctorAppointments.ToList();
+        }
+
+        public DoctorAppointment GetAppointment(int id)
+        {
+            DoctorAppointment appointment = db.DoctorAppointments.Find(id);
+            appointment.Appointment = db.Appointments.Find(appointment.AppointmentId);
+            return appointment;
+        }
     }
 }
