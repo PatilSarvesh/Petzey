@@ -8,6 +8,6 @@
         public int SymptomId { get; set; }
         public int PetId { get; set; }
         //logged in user Id
-        public int UserId { get; set; }
+        public int User { get; set; }
     }
 }

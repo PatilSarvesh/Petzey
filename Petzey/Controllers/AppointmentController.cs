@@ -40,7 +40,7 @@ namespace Petzey.Controllers
             return Ok(res);
         }
         [HttpGet]
-        [Route("DoctorAppointment/{id}")]
+        [Route("DoctorAppointment/AppointmentId/{id}")]
         public ActionResult<DoctorAppointment> GetDoctorAppointment(int id)
         {
             var res = repo.GetAppointment(id);

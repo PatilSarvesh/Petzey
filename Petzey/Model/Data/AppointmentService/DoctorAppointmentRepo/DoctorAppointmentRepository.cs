@@ -36,7 +36,7 @@ namespace Petzey.Model.Data.AppointmentService.DoctorAppointmentRepo
         public List<DoctorAppointment> GetAppointmentsByUserId(int id)
         {
             return (from app in db.DoctorAppointments.Include("Appointment")
-                    where app.Appointment.UserId == id
+                    where app.Appointment.User == id
                     select app).ToList();
         }
 
