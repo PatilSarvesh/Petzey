@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Petzey.Model.Entities;
 
-namespace Petzey.Model.Data.DoctorAppointmentRepo
+namespace Petzey.Model.Data.AppointmentService.DoctorAppointmentRepo
 {
     public class DoctorAppointmentRepository : IDoctorAppointmentRepository
     {
@@ -25,9 +25,10 @@ namespace Petzey.Model.Data.DoctorAppointmentRepo
 
         public DoctorAppointment GetAppointment(int id)
         {
-            return (from app in db.DoctorAppointments.Include("Appointments")
-                    where app.DoctorAppointmentId == id
-                    select app).FirstOrDefault();
+            return db.DoctorAppointments.Find(id);
+            //return (from app in db.DoctorAppointments.Include("Appointments")
+            //        where app.DoctorAppointmentId == id
+            //        select app).FirstOrDefault();
         }
 
         public void UpdateAppointment(DoctorAppointment Appointment)

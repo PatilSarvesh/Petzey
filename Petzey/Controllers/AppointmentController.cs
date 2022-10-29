@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Petzey.Model.Data.DoctorAppointmentRepo;
+using Petzey.Model.Data.AppointmentService.DoctorAppointmentRepo;
 using Petzey.Model.Entities;
 
 namespace Petzey.Controllers
