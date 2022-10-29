@@ -22,10 +22,19 @@ namespace Petzey.Controllers
             return Created("api/Appointment{Appointment.DoctorAppointmentId}", Appointment);
         }
         [HttpGet]
-        [Route("DoctorAppointment")]
+        [Route("DoctorAppointment/All")]
         public ActionResult<List<DoctorAppointment>> GetDoctorAppointments()
         {
             var res = repo.GetAllAppointments();
+            if (res.Count == 0)
+                return NotFound();
+            return Ok(res);
+        }
+        [HttpGet]
+        [Route("DoctorAppointment/UserId/{id}")]
+        public ActionResult<List<DoctorAppointment>> GetDoctorAppointmentsByUserId(int id)
+        {
+            var res = repo.GetAppointmentsByUserId(id);
             if (res.Count == 0)
                 return NotFound();
             return Ok(res);
