@@ -7,5 +7,7 @@ namespace Petzey.Model.Data.DoctorAppointmentRepo
         void AddAppointment(DoctorAppointment Appointment);
         List<DoctorAppointment> GetAllAppointments();
         DoctorAppointment GetAppointment(int id);
+        void UpdateAppointment(DoctorAppointment Appointment);
+        void DeleteAppointment(DoctorAppointment Appointment);
     }
 }

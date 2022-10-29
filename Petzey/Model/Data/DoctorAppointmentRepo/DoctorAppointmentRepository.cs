@@ -1,4 +1,5 @@
-﻿using Petzey.Model.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Petzey.Model.Entities;
 
 namespace Petzey.Model.Data.DoctorAppointmentRepo
 {
@@ -12,6 +13,11 @@ namespace Petzey.Model.Data.DoctorAppointmentRepo
             db.SaveChanges();
         }
 
+        public void DeleteAppointment(DoctorAppointment Appointment)
+        {
+            db.DoctorAppointments.Remove(Appointment);
+        }
+
         public List<DoctorAppointment> GetAllAppointments()
         {
             return db.DoctorAppointments.ToList();
@@ -19,9 +25,16 @@ namespace Petzey.Model.Data.DoctorAppointmentRepo
 
         public DoctorAppointment GetAppointment(int id)
         {
-            DoctorAppointment appointment = db.DoctorAppointments.Find(id);
-            appointment.Appointment = db.Appointments.Find(appointment.AppointmentId);
-            return appointment;
+            return (from app in db.DoctorAppointments.Include("Appointments")
+                    where app.DoctorAppointmentId == id
+                    select app).FirstOrDefault();
+        }
+
+        public void UpdateAppointment(DoctorAppointment Appointment)
+        {
+            db.Entry(Appointment).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            db.Entry(Appointment.Appointment).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }
