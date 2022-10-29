@@ -8,5 +8,6 @@
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }
         public string BloodGroup { get; set; }
+        public int PetOwnerId { get; set; }
     }
 }
