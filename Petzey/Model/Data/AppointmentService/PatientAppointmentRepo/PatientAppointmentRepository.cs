@@ -19,14 +19,12 @@ namespace Petzey.Model.Data.AppointmentService.PatientAppointmentRepo
 
         public List<PatientAppointment> GetAllAppointments()
         {
-            //return db.PatientAppointments.ToList();
             return (from app in db.PatientAppointments.Include("Appointment")
                     select app).ToList();
         }
 
         public PatientAppointment GetAppointment(int id)
         {
-            //return db.PatientAppointments.Find(id);
             return(from app in db.PatientAppointments.Include("Appointment")
                    where app.PatientAppointmentId == id
                    select app).FirstOrDefault();
@@ -35,7 +33,7 @@ namespace Petzey.Model.Data.AppointmentService.PatientAppointmentRepo
         public List<PatientAppointment> GetAppointmentsByUserId(int id)
         {
             return (from app in db.PatientAppointments.Include("Appointment")
-                    where app.Appointment.User ==id
+                    where app.Appointment.User == id
                     select app).ToList();
         }
 

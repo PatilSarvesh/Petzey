@@ -17,19 +17,16 @@ namespace Petzey.Model.Data.AppointmentService.ReceptionistAppointmentRepo
         public void DeleteAppointment(ReceptionistAppointment Appointment)
         {
             db.ReceptionistAppointments.Remove(Appointment);
-
         }
 
         public List<ReceptionistAppointment> GetAllAppointments()
         {
-            //return db.ReceptionistAppointments.ToList();
             return (from app in db.ReceptionistAppointments.Include("Appointment")
                     select app).ToList();
         }
 
         public ReceptionistAppointment GetAppointment(int id)
         {
-            // return db.ReceptionistAppointments.Find(id);
             return (from app in db.ReceptionistAppointments.Include("Appointment")
                     where app.ReceptionistAppointmentId == id
                     select app).FirstOrDefault();
