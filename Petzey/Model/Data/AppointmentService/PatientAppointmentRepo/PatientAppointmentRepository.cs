@@ -1,37 +1,49 @@
-﻿using Petzey.Model.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Petzey.Model.Entities;
 
 namespace Petzey.Model.Data.AppointmentService.PatientAppointmentRepo
 {
     public class PatientAppointmentRepository : IPatientAppointmentRepository
     {
+        private PetzeyDbContext db = new PetzeyDbContext();
         public void AddAppointment(PatientAppointment Appointment)
         {
-            throw new NotImplementedException();
+            db.PatientAppointments.Add(Appointment);
+            db.SaveChanges();
         }
 
         public void DeleteAppointment(PatientAppointment Appointment)
         {
-            throw new NotImplementedException();
+            db.PatientAppointments.Remove(Appointment);
         }
 
         public List<PatientAppointment> GetAllAppointments()
         {
-            throw new NotImplementedException();
+            //return db.PatientAppointments.ToList();
+            return (from app in db.PatientAppointments.Include("Appointment")
+                    select app).ToList();
         }
 
         public PatientAppointment GetAppointment(int id)
         {
-            throw new NotImplementedException();
+            //return db.PatientAppointments.Find(id);
+            return(from app in db.PatientAppointments.Include("Appointment")
+                   where app.PatientAppointmentId == id
+                   select app).FirstOrDefault();
         }
 
         public List<PatientAppointment> GetAppointmentsByUserId(int id)
         {
-            throw new NotImplementedException();
+            return (from app in db.PatientAppointments.Include("Appointment")
+                    where app.Appointment.User ==id
+                    select app).ToList();
         }
 
         public void UpdateAppointment(PatientAppointment Appointment)
         {
-            throw new NotImplementedException();
+            db.Entry(Appointment).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            db.Entry(Appointment.Appointment).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }
