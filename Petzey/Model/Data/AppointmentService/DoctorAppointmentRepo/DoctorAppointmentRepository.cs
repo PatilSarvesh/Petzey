@@ -20,7 +20,9 @@ namespace Petzey.Model.Data.AppointmentService.DoctorAppointmentRepo
 
         public List<DoctorAppointment> GetAllAppointments()
         {
-            return db.DoctorAppointments.ToList();
+            //return db.DoctorAppointments.ToList();
+            return (from app in db.DoctorAppointments.Include("Appointment")
+                    select app).ToList();
         }
 
         public DoctorAppointment GetAppointment(int id)
