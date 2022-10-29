@@ -33,6 +33,13 @@ namespace Petzey.Model.Data.AppointmentService.DoctorAppointmentRepo
                     select app).FirstOrDefault();
         }
 
+        public List<DoctorAppointment> GetAppointmentsByUserId(int id)
+        {
+            return (from app in db.DoctorAppointments.Include("Appointment")
+                    where app.Appointment.UserId == id
+                    select app).ToList();
+        }
+
         public void UpdateAppointment(DoctorAppointment Appointment)
         {
             db.Entry(Appointment).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
