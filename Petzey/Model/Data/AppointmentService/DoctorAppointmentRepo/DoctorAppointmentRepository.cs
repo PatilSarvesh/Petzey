@@ -25,10 +25,10 @@ namespace Petzey.Model.Data.AppointmentService.DoctorAppointmentRepo
 
         public DoctorAppointment GetAppointment(int id)
         {
-            return db.DoctorAppointments.Find(id);
-            //return (from app in db.DoctorAppointments.Include("Appointments")
-            //        where app.DoctorAppointmentId == id
-            //        select app).FirstOrDefault();
+            //return db.DoctorAppointments.Find(id);
+            return (from app in db.DoctorAppointments.Include("Appointment")
+                    where app.DoctorAppointmentId == id
+                    select app).FirstOrDefault();
         }
 
         public void UpdateAppointment(DoctorAppointment Appointment)
