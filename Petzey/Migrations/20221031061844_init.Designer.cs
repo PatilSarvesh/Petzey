@@ -12,8 +12,8 @@ using Petzey.Model.Data;
 namespace Petzey.Migrations
 {
     [DbContext(typeof(PetzeyDbContext))]
-    [Migration("20221029062000_init3")]
-    partial class init3
+    [Migration("20221031061844_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,11 +38,11 @@ namespace Petzey.Migrations
                     b.Property<int>("PetId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PetIssueId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ReasonForVisit")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SymptomId")
-                        .HasColumnType("int");
 
                     b.Property<int>("User")
                         .HasColumnType("int");
@@ -144,7 +144,7 @@ namespace Petzey.Migrations
 
                     b.HasKey("MedicineId");
 
-                    b.ToTable("Medicines");
+                    b.ToTable("Medicine");
                 });
 
             modelBuilder.Entity("Petzey.Model.Entities.Patient", b =>
@@ -307,25 +307,6 @@ namespace Petzey.Migrations
                     b.HasIndex("AppointmentId");
 
                     b.ToTable("ReceptionistAppointments");
-                });
-
-            modelBuilder.Entity("Petzey.Model.Entities.Symptom", b =>
-                {
-                    b.Property<int>("SymptomId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SymptomId"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SymptomName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SymptomId");
-
-                    b.ToTable("Symptoms");
                 });
 
             modelBuilder.Entity("Petzey.Model.Entities.Test", b =>
