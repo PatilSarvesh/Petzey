@@ -10,6 +10,8 @@ namespace Petzey.Model.DataAccess.VetService.DoctorRepo
         public void AddDoctor(Doctor doctor)
         {
             db.Doctors.Add(doctor);
+
+          
             db.SaveChanges();
         }
 
