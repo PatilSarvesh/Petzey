@@ -11,7 +11,7 @@ namespace Petzey.Model.DataAccess.VetService.DoctorRepo
         {
             db.Doctors.Add(doctor);
 
-          
+
             db.SaveChanges();
         }
 
