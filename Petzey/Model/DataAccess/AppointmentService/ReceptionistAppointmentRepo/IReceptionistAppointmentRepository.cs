@@ -1,6 +1,6 @@
 ﻿using Petzey.Model.Entities;
 
-namespace Petzey.Model.Data.AppointmentService.ReceptionistAppointmentRepo
+namespace Petzey.Model.DataAccess.AppointmentService.ReceptionistAppointmentRepo
 {
     public interface IReceptionistAppointmentRepository
     {

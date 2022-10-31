@@ -1,6 +1,6 @@
 ﻿using Petzey.Model.Entities;
 
-namespace Petzey.Model.Data.PetService.PetOwnerRepo
+namespace Petzey.Model.DataAccess.PetService.PetOwnerRepo
 {
     public interface IPetOwnerRepository
     {

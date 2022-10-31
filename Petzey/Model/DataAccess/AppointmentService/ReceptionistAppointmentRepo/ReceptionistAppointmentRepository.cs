@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Petzey.Model.Data;
 using Petzey.Model.Entities;
 
-namespace Petzey.Model.Data.AppointmentService.ReceptionistAppointmentRepo
+namespace Petzey.Model.DataAccess.AppointmentService.ReceptionistAppointmentRepo
 {
     public class ReceptionistAppointmentRepository : IReceptionistAppointmentRepository
     {

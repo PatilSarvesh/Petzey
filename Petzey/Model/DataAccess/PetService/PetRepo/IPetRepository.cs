@@ -1,6 +1,6 @@
 ﻿using Petzey.Model.Entities;
 
-namespace Petzey.Model.Data.PetService.PetOwnerRepo
+namespace Petzey.Model.DataAccess.PetService.PetRepo
 {
     public interface IPetRepository
     {
@@ -8,5 +8,6 @@ namespace Petzey.Model.Data.PetService.PetOwnerRepo
         void UpdatePet(Pet pet);
         Pet GetPet(int id);
         void DeletePet(Pet pet);
+        List<Pet> GetAllPetByUserId(int id);
     }
 }

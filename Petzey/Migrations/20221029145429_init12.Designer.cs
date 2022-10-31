@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Petzey.Model.Data;
 
@@ -11,9 +12,10 @@ using Petzey.Model.Data;
 namespace Petzey.Migrations
 {
     [DbContext(typeof(PetzeyDbContext))]
-    partial class PetzeyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221029145429_init12")]
+    partial class init12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,7 +144,7 @@ namespace Petzey.Migrations
 
                     b.HasKey("MedicineId");
 
-                    b.ToTable("Medicine");
+                    b.ToTable("Medicines");
                 });
 
             modelBuilder.Entity("Petzey.Model.Entities.Patient", b =>
@@ -305,6 +307,22 @@ namespace Petzey.Migrations
                     b.HasIndex("AppointmentId");
 
                     b.ToTable("ReceptionistAppointments");
+                });
+
+            modelBuilder.Entity("Petzey.Model.Entities.Symptom", b =>
+                {
+                    b.Property<int>("SymptomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SymptomId"), 1L, 1);
+
+                    b.Property<string>("SymptomName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SymptomId");
+
+                    b.ToTable("Symptoms");
                 });
 
             modelBuilder.Entity("Petzey.Model.Entities.Test", b =>

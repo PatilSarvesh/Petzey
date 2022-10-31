@@ -1,6 +1,7 @@
-﻿using Petzey.Model.Entities;
+﻿using Petzey.Model.Data;
+using Petzey.Model.Entities;
 
-namespace Petzey.Model.Data.PetService.PetOwnerRepo
+namespace Petzey.Model.DataAccess.PetService.PetOwnerRepo
 {
     public class PetOwnerRepository : IPetOwnerRepository
     {
@@ -19,6 +20,7 @@ namespace Petzey.Model.Data.PetService.PetOwnerRepo
         public void RemovePetOwner(PetOwner petOwner)
         {
             db.PetOwners.Remove(petOwner);
+            db.SaveChanges();
         }
 
         public void UpdatePetOwner(PetOwner petOwner)

@@ -1,6 +1,7 @@
-﻿using Petzey.Model.Entities;
+﻿using Petzey.Model.Data;
+using Petzey.Model.Entities;
 
-namespace Petzey.Model.Data.PetService.PetOwnerRepo
+namespace Petzey.Model.DataAccess.PetService.PetRepo
 {
     public class PetRepository : IPetRepository
     {
@@ -19,12 +20,20 @@ namespace Petzey.Model.Data.PetService.PetOwnerRepo
         public void DeletePet(Pet pet)
         {
             db.Pets.Remove(pet);
+            db.SaveChanges();
         }
 
         public void UpdatePet(Pet pet)
         {
             db.Entry(pet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             db.SaveChanges();
+        }
+
+        public List<Pet> GetAllPetByUserId(int id)
+        {
+            return (from pet in db.Pets
+                    where pet.PetOwnerId == id
+                    select pet).ToList();
         }
     }
 }
