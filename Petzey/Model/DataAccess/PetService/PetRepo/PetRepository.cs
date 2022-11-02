@@ -9,9 +9,6 @@ namespace Petzey.Model.DataAccess.PetService.PetRepo
         public void AddPet(Pet pet)
         {
             db.Pets.Add(pet);
-
-
-
             db.SaveChanges();
         }
 

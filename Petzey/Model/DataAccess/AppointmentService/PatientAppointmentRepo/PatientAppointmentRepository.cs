@@ -16,6 +16,7 @@ namespace Petzey.Model.DataAccess.AppointmentService.PatientAppointmentRepo
         public void DeleteAppointment(PatientAppointment Appointment)
         {
             db.PatientAppointments.Remove(Appointment);
+            db.SaveChanges();
         }
 
         public List<PatientAppointment> GetAllAppointments()
